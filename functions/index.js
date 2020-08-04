@@ -41,6 +41,22 @@ exports.getDataStructures = functions.https.onRequest((req, res) => {
     });
  });
 
+ exports.getDataStructuresList = functions.https.onRequest((req, res) => {
+  const docRef = db.collection('DataStructures');
+  const getDoc = docRef.get()
+    .then(doc => {
+      if (!doc.exists) {
+        console.log('No such document!');
+        return res.send('Not Found')
+      } 
+        console.log(doc.data());
+        return res.send({data : doc.data()});
+    })
+    .catch(err => {
+      console.log('Error getting document', err);
+    });
+ });
+
  
 
  
